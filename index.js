@@ -7,11 +7,19 @@ const apiUrl = `https://api.github.com/users/`;
 
 const githubProfile = async function () {
   try {
-    const search = input.value;
-    const res = await fetch(apiUrl + search);
-    if (!res.ok) return;
+    const search = decodeURIComponent(input.value);
+    if (!search) {
+      main.innerHTML = `<p class='error'>please insert value</p>`;
+    }
+    const res = await fetch(apiUrl + encodeURIComponent(search));
+    if (!res.ok) {
+      if (res.status === 404) {
+        throw new Error(" User not found");
+      } else {
+        throw new Error("Failed to fetch user data");
+      }
+    }
     const data = await res.json();
-    if (!data) throw new Error("no data found");
 
     profiles(data);
     await userRepos(search);
@@ -19,12 +27,15 @@ const githubProfile = async function () {
     input.value = "";
   } catch (error) {
     console.error(error);
+    main.innerHTML = "";
+    displayErrorMessage(error.message);
   }
 };
 
 const userRepos = async function (search) {
   try {
     const res = await fetch(apiUrl + search + "/repos");
+    if (!res) return;
     const data = await res.json();
 
     repoPage(data);
@@ -32,6 +43,13 @@ const userRepos = async function (search) {
     console.error(error);
   }
 };
+
+function displayErrorMessage(message) {
+  const errorMessageElement = document.createElement("p");
+  errorMessageElement.textContent = message;
+  errorMessageElement.classList.add("error");
+  main.appendChild(errorMessageElement);
+}
 
 function profiles(user) {
   const html = `
