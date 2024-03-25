@@ -26,14 +26,14 @@ h1 {
 .container {
   display: flex;
   align-items: center;
-  width: 500px;
+  width: 550px;
   background-color: rgb(16, 28, 134);
   padding: 20px;
   border-radius: 10px;
 }
 
 img {
-  width: 100px;
+  width: 120px;
   /* height: 110px; */
   border-radius: 50%;
   border: 8px solid rgb(14, 14, 83);
@@ -68,6 +68,12 @@ form input::placeholder {
   font-size: 13px;
 }
 
+.details a {
+  color: rgb(248, 235, 235);
+  display: flex;
+  justify-content: center;
+}
+
 .follow {
   display: flex;
   font-size: 13px;
@@ -85,26 +91,23 @@ form input::placeholder {
   margin-right: 8px;
 }
 
-ul {
+.repos_container {
   display: flex;
   flex-wrap: wrap;
-  font-size: 11px;
+  font-size: 13px;
 }
 
-ul li {
-  list-style: none;
+.link {
+  text-decoration: none;
+  color: white;
+
   background-color: rgb(13, 13, 107);
   padding: 4px;
   margin: 2px 8px 5px 0;
   border-radius: 3px;
 }
 
-ul li a {
-  text-decoration: none;
-  color: white;
-}
-
-@media (max-width: 500px) {
+@media (max-width: 550px) {
   h1 {
     font-size: 18px;
     margin-top: 20px;
